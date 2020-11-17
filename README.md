@@ -2,23 +2,26 @@
 Potato Wallet Core is a typescript library that implements low-level cryptographic wallet functionality for many blockchains
 
 # Usage
-### Generate mnemonic
+### Create wallet
 ```typescript
-// Default length: 128
-const mnemonic = generateMnemonic();
-const mnemonic = generateMnemonic(128);
+const wallet = new Wallet();
+// OR specific length
+const wallet = new Wallet(128);
 ```
 
-### Mnemonic convert to entropy
+### Restore wallet
 ```typescript
-const entropy = mnemonicToEntropy(mnemonic);
+const wallet = new Wallet('hello world random string');
 ```
 
-### Mnemonic convert to seed
+### With cache password
 ```typescript
-const seed = mnemonicToSeed(mnemonic);
+new Wallet(128, 'Secret');
+new Wallet('hello world random string', 'Secret');
 ```
-Feel free to provide a password as second parameter.
+
+### Get default address
+The supported coins are `BTC` and `ETH`, and more coins will be included in the future.
 ```typescript
-const seed = mnemonicToSeed(mnemonic, 'Secret');
+const address = wallet.getAddress('BTC');
 ```
