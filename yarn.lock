@@ -2,18 +2,6 @@
 # yarn lockfile v1
 
 
-"@types/create-hash@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.npm.taobao.org/@types/create-hash/download/@types/create-hash-1.2.2.tgz#e87247083df8478f6b83655592bde0d709028235"
-  integrity sha1-6HJHCD34R49rg2VVkr3g1wkCgjU=
-  dependencies:
-    "@types/node" "*"
-
-"@types/node@*":
-  version "14.14.7"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.7.tgz?cache=0&sync_timestamp=1604951079891&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.7.tgz#8ea1e8f8eae2430cf440564b98c6dfce1ec5945d"
-  integrity sha1-jqHo+OriQwz0QFZLmMbfzh7FlF0=
-
 "@types/node@10.12.18":
   version "10.12.18"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-10.12.18.tgz#1d3ca764718915584fcd9f6344621b7672665c67"
@@ -28,20 +16,6 @@
   version "14.14.6"
   resolved "https://registry.npmjs.org/@types/node/-/node-14.14.6.tgz#146d3da57b3c636cc0d1769396ce1cfa8991147f"
   integrity sha512-6QlRuqsQ/Ox/aJEQWBEJG7A9+u7oSYl3mem/K8IzxXG/kAGbV1YPD9Bg9Zw3vyxC/YP+zONKwy8hGkSt1jxFMw==
-
-"@types/pbkdf2@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.npm.taobao.org/@types/pbkdf2/download/@types/pbkdf2-3.1.0.tgz?cache=0&sync_timestamp=1605054890960&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fpbkdf2%2Fdownload%2F%40types%2Fpbkdf2-3.1.0.tgz#039a0e9b67da0cdc4ee5dab865caa6b267bb66b1"
-  integrity sha1-A5oOm2faDNxO5dq4Zcqmsme7ZrE=
-  dependencies:
-    "@types/node" "*"
-
-"@types/randombytes@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npm.taobao.org/@types/randombytes/download/@types/randombytes-2.0.0.tgz#0087ff5e60ae68023b9bc4398b406fea7ad18304"
-  integrity sha1-AIf/XmCuaAI7m8Q5i0Bv6nrRgwQ=
-  dependencies:
-    "@types/node" "*"
 
 arg@^4.1.0:
   version "4.1.3"
@@ -72,7 +46,7 @@ bip174@^2.0.1:
   resolved "https://registry.npm.taobao.org/bip174/download/bip174-2.0.1.tgz#39cf8ca99e50ce538fb762589832f4481d07c254"
   integrity sha1-Oc+MqZ5QzlOPt2JYmDL0SB0HwlQ=
 
-bip32@^2.0.4, bip32@^2.0.6:
+bip32@^2.0.4:
   version "2.0.6"
   resolved "https://registry.npm.taobao.org/bip32/download/bip32-2.0.6.tgz#6a81d9f98c4cd57d05150c60d8f9e75121635134"
   integrity sha1-aoHZ+YxM1X0FFQxg2PnnUSFjUTQ=
@@ -278,7 +252,7 @@ nan@^2.13.2:
   resolved "https://registry.npm.taobao.org/nan/download/nan-2.14.2.tgz?cache=0&sync_timestamp=1602591607196&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fnan%2Fdownload%2Fnan-2.14.2.tgz#f5376400695168f4cc694ac9393d0c9585eeea19"
   integrity sha1-9TdkAGlRaPTMaUrJOT0MlYXu6hk=
 
-pbkdf2@^3.0.9, pbkdf2@^3.1.1:
+pbkdf2@^3.0.9:
   version "3.1.1"
   resolved "https://registry.npm.taobao.org/pbkdf2/download/pbkdf2-3.1.1.tgz#cb8724b0fada984596856d1a6ebafd3584654b94"
   integrity sha1-y4cksPramEWWhW0abrr9NYRlS5Q=
@@ -296,7 +270,7 @@ pushdata-bitcoin@^1.0.1:
   dependencies:
     bitcoin-ops "^1.3.0"
 
-randombytes@^2.0.1, randombytes@^2.1.0:
+randombytes@^2.0.1:
   version "2.1.0"
   resolved "https://registry.npm.taobao.org/randombytes/download/randombytes-2.1.0.tgz#df6f84372f0270dc65cdf6291349ab7a473d4f2a"
   integrity sha1-32+ENy8CcNxlzfYpE0mrekc9Tyo=

@@ -1,4 +1,6 @@
 import { generateMnemonic, mnemonicToSeedSync, wordlists, validateMnemonic, mnemonicToEntropy } from 'bip39';
+import { bip32, payments } from 'bitcoinjs-lib';
+import { COIN, networkMap } from './libs/coin';
 
 export class Wallet {
   protected readonly seed: Buffer;
@@ -34,5 +36,15 @@ export class Wallet {
 
   getMnemonic(): string {
     return this.mnemonic;
+  }
+
+  getAddress(coin: typeof COIN[number]) {
+    const child1 = this.getRoot(coin).derivePath("m/44'/0'/0'/0/0");
+
+    return payments.p2pkh({ pubkey: child1.publicKey }).address;
+  }
+
+  getRoot(coin: typeof COIN[number]) {
+    return bip32.fromSeed(this.seed, networkMap[coin]);
   }
 }
