@@ -1,5 +1,6 @@
 import { generateMnemonic, mnemonicToSeedSync, wordlists, validateMnemonic, mnemonicToEntropy } from 'bip39';
 import { bip32, payments } from 'bitcoinjs-lib';
+import { publicToAddress, addHexPrefix } from 'ethereumjs-util';
 import { COIN, COIN_META } from './libs/coin';
 
 export class Wallet {
@@ -45,7 +46,16 @@ export class Wallet {
       .getRoot(coin)
       .derivePath(`m/${this.purpose}'/${COIN_META[coin].id}'/${account}'/${internal ? 1 : 0}/${index}`);
 
-    return payments.p2pkh({ pubkey: child.publicKey }).address;
+
+    switch (coin) {
+      case 'BTC':
+        return payments.p2pkh({ pubkey: child.publicKey }).address;
+      case 'ETH':
+        return addHexPrefix(publicToAddress(child.publicKey, true).toString('hex'));
+      case 'DOT':
+        // FIXME:
+        return '';
+    }
   }
 
   protected getRoot(coin: COIN) {
