@@ -2,6 +2,7 @@ import { generateMnemonic, mnemonicToSeedSync, wordlists, validateMnemonic, mnem
 import { bip32, payments } from 'bitcoinjs-lib';
 import { publicToAddress, addHexPrefix } from 'ethereumjs-util';
 import { COIN, COIN_META } from './libs/coin';
+import { Keyring } from '@polkadot/keyring';
 
 export class Wallet {
   protected readonly seed: Buffer;
@@ -53,8 +54,10 @@ export class Wallet {
       case 'ETH':
         return addHexPrefix(publicToAddress(child.publicKey, true).toString('hex'));
       case 'DOT':
-        // FIXME:
-        return '';
+        const keyring: Keyring = new Keyring();
+        const pair = keyring.createFromUri(this.getMnemonic());
+        keyring.setSS58Format(0);
+        return pair.address;
     }
   }
 

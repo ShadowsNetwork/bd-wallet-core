@@ -7,6 +7,7 @@
   "repository": "git@github.com:bdwallet/bd-wallet-core.git",
   "license": "GPL-3.0",
   "dependencies": {
+    "@polkadot/keyring": "^4.1.1",
     "bip39": "^3.0.3",
     "bitcoinjs-lib": "^5.2.0",
     "ethereumjs-util": "^7.0.7",
