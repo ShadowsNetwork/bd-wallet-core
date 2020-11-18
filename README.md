@@ -1,5 +1,5 @@
-# potato-wallet-core
-Potato Wallet Core is a typescript library that implements low-level cryptographic wallet functionality for many blockchains
+# bd-wallet-core
+Black Diamond Wallet Core is a typescript library that implements low-level cryptographic wallet functionality for many blockchain
 
 # Usage
 ### Create wallet

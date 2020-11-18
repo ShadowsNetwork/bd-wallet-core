@@ -1,5 +1,5 @@
 {
-  "name": "potato-wallet-core",
+  "name": "bd-wallet-core",
   "version": "0.0.0",
   "main": "lib/index.js",
   "module": "es/index.js",
