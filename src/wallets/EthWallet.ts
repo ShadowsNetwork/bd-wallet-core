@@ -1,4 +1,4 @@
-import { bip32, networks } from 'bitcoinjs-lib';
+import { bip32 } from 'bitcoinjs-lib';
 import { addHexPrefix, publicToAddress } from 'ethereumjs-util';
 import { Wallet } from './Wallet';
 
@@ -11,7 +11,7 @@ export class EthWallet extends Wallet {
   }
 
   getRoot() {
-    return bip32.fromSeed(this.seed, networks.bitcoin);
+    return bip32.fromSeed(this.seed);
   }
 
   protected getDerivePath(account: number, index: number, internal: boolean): string {

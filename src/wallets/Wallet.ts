@@ -8,19 +8,19 @@ const STRENGTH_MAP = {
   24: 32 * 8
 };
 
+export type WordsAmount = keyof typeof STRENGTH_MAP;
+
 export abstract class Wallet {
   protected readonly seed: Buffer;
   protected readonly wordlist: string[];
   protected readonly mnemonic: string;
-  protected readonly password?: string;
   protected readonly purpose: number;
 
-  constructor(wordsAmount?: keyof typeof STRENGTH_MAP, password?: string);
-  constructor(mnemonic: string, password?: string);
-  constructor(str: keyof typeof STRENGTH_MAP | string = 12, password?: string) {
+  constructor(wordsAmount?: WordsAmount, isBip49?: boolean);
+  constructor(mnemonic: string, isBip49?: boolean);
+  constructor(str: WordsAmount | string = 12, isBip49: boolean = true) {
     this.wordlist = wordlists.english;
-    this.password = password;
-    this.purpose = 44;
+    this.purpose = isBip49 ? 49 : 44;
 
     if (typeof str === 'number') {
       this.mnemonic = generateMnemonic(STRENGTH_MAP[str], undefined, this.wordlist);
@@ -36,6 +36,10 @@ export abstract class Wallet {
 
   getEntropy(): string {
     return mnemonicToEntropy(this.mnemonic);
+  }
+
+  getSeed(): Buffer {
+    return this.seed;
   }
 
   getMnemonic(): string {
