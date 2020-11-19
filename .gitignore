@@ -107,3 +107,4 @@ dist
 build/
 lib/
 es/
+test.ts
