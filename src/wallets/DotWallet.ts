@@ -5,11 +5,11 @@ const keyring = new Keyring({ type: 'sr25519' });
 
 export class DotWallet extends Wallet {
   getAddress(...indexes: number[]) {
-    return this.getRoot().derive(this.getDerivePath(indexes)).address;
+    return this.getRootKey().derive(this.getDerivePath(indexes)).address;
   }
 
-  getRoot() {
-    return keyring.createFromUri(this.getMnemonic());
+  getRootKey() {
+    return this.cacheRootKey(() => keyring.createFromUri(this.mnemonic));
   }
 
   protected getDerivePath(indexes: number[]): string {

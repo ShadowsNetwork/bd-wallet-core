@@ -14,13 +14,12 @@ export abstract class Wallet {
   protected readonly seed: Buffer;
   protected readonly wordlist: string[];
   protected readonly mnemonic: string;
-  protected readonly purpose: number;
+  protected purpose: number;
+  private rootKey: any;
 
-  constructor(wordsAmount?: WordsAmount, isBip49?: boolean);
-  constructor(mnemonic: string, isBip49?: boolean);
-  constructor(str: WordsAmount | string = 12, isBip49: boolean = true) {
+  constructor(str: WordsAmount | string = 12) {
     this.wordlist = wordlists.english;
-    this.purpose = isBip49 ? 49 : 44;
+    this.purpose = 44;
 
     if (typeof str === 'number') {
       this.mnemonic = generateMnemonic(STRENGTH_MAP[str], undefined, this.wordlist);
@@ -45,6 +44,12 @@ export abstract class Wallet {
   getMnemonic(): string {
     return this.mnemonic;
   }
+
+  protected cacheRootKey<T>(setKey: () => T): T {
+    return this.rootKey || (this.rootKey = setKey(), this.rootKey);
+  }
+
+  abstract getRootKey(): any;
 
   protected abstract getId(): number;
 }
