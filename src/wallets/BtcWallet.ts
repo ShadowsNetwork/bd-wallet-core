@@ -11,7 +11,7 @@ export class BtcWallet extends Wallet {
 
   getAddress(account: number = 0, index: number = 0, internal: boolean = false) {
     const derivePath = this.getDerivePath(account, index, internal);
-    const child = this.getRootKey().derivePath(derivePath);
+    const child = this.getRoot().derivePath(derivePath);
 
     if (this.purpose === BIP_49) {
       return payments.p2sh({ redeem: payments.p2wpkh({ pubkey: child.publicKey }) }).address;
@@ -20,7 +20,7 @@ export class BtcWallet extends Wallet {
     return payments.p2pkh({ pubkey: child.publicKey }).address;
   }
 
-  getRootKey() {
+  getRoot() {
     return this.cacheRootKey(() => bip32.fromSeed(this.seed));
   }
 

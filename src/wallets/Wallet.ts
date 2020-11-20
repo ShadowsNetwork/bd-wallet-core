@@ -49,7 +49,5 @@ export abstract class Wallet {
     return this.rootKey || (this.rootKey = setKey(), this.rootKey);
   }
 
-  abstract getRootKey(): any;
-
   protected abstract getId(): number;
 }
