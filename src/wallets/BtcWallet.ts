@@ -104,7 +104,7 @@ export class BtcWallet extends Wallet {
       value: changeMoney,
     });
 
-    const tx = await this.getTransition(meta, inputs, outputs);
+    const tx = await this.getTransaction(meta, inputs, outputs);
 
     await this.broadcast(tx.toHex());
     await this.verify(
@@ -140,7 +140,7 @@ export class BtcWallet extends Wallet {
       value: changeMoney,
     });
 
-    const tx = await this.getTransition(meta, inputs, outputs);
+    const tx = await this.getTransaction(meta, inputs, outputs);
     let fee = (tx.virtualSize() + inputs.length) * feeRate;
 
     if (totalMoney - outputMoney - fee < 0) {
@@ -153,7 +153,7 @@ export class BtcWallet extends Wallet {
     return fee;
   }
 
-  protected async getTransition(meta: AddressMeta, inputs: Unspent[], outputs: Output[]) {
+  protected async getTransaction(meta: AddressMeta, inputs: Unspent[], outputs: Output[]) {
     const pair = ECPair.fromWIF(meta.privateKey, this.network);
     const utxos = await Promise.all(inputs.map((input) => this.getUtxo(input.txId)));
 
