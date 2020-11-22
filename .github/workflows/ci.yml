@@ -25,6 +25,9 @@ jobs:
     - run: |
         yarn install
         yarn add typescript@${{ matrix.ts-version }} --dev
+    - run: |
+        docker pull junderw/bitcoinjs-regtest-server
+        docker run -d -p 127.0.0.1:8080:8080 junderw/bitcoinjs-regtest-server
     - run: yarn test
     - name: Coverage
       uses: codecov/codecov-action@v1

@@ -411,6 +411,13 @@ assertion-error@^1.1.0:
   resolved "https://registry.npm.taobao.org/assertion-error/download/assertion-error-1.1.0.tgz#e60b6b0e8f301bd97e5375215bda406c85118c0b"
   integrity sha1-5gtrDo8wG9l+U3UhW9pAbIURjAs=
 
+axios@^0.21.0:
+  version "0.21.0"
+  resolved "https://registry.npm.taobao.org/axios/download/axios-0.21.0.tgz?cache=0&sync_timestamp=1603468783865&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Faxios%2Fdownload%2Faxios-0.21.0.tgz#26df088803a2350dff2c27f96fef99fe49442aca"
+  integrity sha1-Jt8IiAOiNQ3/LCf5b++Z/klEKso=
+  dependencies:
+    follow-redirects "^1.10.0"
+
 balanced-match@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/balanced-match/download/balanced-match-1.0.0.tgz#89b4d199ab2bee49de164ea02b89ce462d71b767"
@@ -445,7 +452,7 @@ bip174@^2.0.1:
   resolved "https://registry.npm.taobao.org/bip174/download/bip174-2.0.1.tgz#39cf8ca99e50ce538fb762589832f4481d07c254"
   integrity sha1-Oc+MqZ5QzlOPt2JYmDL0SB0HwlQ=
 
-bip32@^2.0.4:
+bip32@^2.0.4, bip32@^2.0.6:
   version "2.0.6"
   resolved "https://registry.npm.taobao.org/bip32/download/bip32-2.0.6.tgz#6a81d9f98c4cd57d05150c60d8f9e75121635134"
   integrity sha1-aoHZ+YxM1X0FFQxg2PnnUSFjUTQ=
@@ -795,6 +802,13 @@ default-require-extensions@^3.0.0:
   dependencies:
     strip-bom "^4.0.0"
 
+dhttp@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.npm.taobao.org/dhttp/download/dhttp-3.0.3.tgz#5a9ade18b13516293f10b73d78afdaf5272f1d13"
+  integrity sha1-WpreGLE1Fik/ELc9eK/a9ScvHRM=
+  dependencies:
+    statuses "^1.5.0"
+
 diff@4.0.2, diff@^4.0.1:
   version "4.0.2"
   resolved "https://registry.npmjs.org/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
@@ -940,6 +954,11 @@ flat@^5.0.2:
   version "5.0.2"
   resolved "https://registry.npm.taobao.org/flat/download/flat-5.0.2.tgz?cache=0&sync_timestamp=1602723350249&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fflat%2Fdownload%2Fflat-5.0.2.tgz#8ca6fe332069ffa9d324c327198c598259ceb241"
   integrity sha1-jKb+MyBp/6nTJMMnGYxZglnOskE=
+
+follow-redirects@^1.10.0:
+  version "1.13.0"
+  resolved "https://registry.npm.taobao.org/follow-redirects/download/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
+  integrity sha1-tC6Nk6Kn7qXtiGM2dtZZe8jjhNs=
 
 foreground-child@^2.0.0:
   version "2.0.0"
@@ -1629,6 +1648,15 @@ regenerator-runtime@^0.13.4:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz#cac2dacc8a1ea675feaabaeb8ae833898ae46f55"
   integrity sha512-a54FxoJDIr27pgf7IgeQGxmqUNYrcV338lf/6gH456HZ/PhX+5BcwHXG9ajESmwe6WRO0tAzRUrRmNONWgkrew==
 
+regtest-client@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.npm.taobao.org/regtest-client/download/regtest-client-0.2.0.tgz#815b1eaab4b12b66d25ee35137a970ff48c0ee0c"
+  integrity sha1-gVseqrSxK2bSXuNRN6lw/0jA7gw=
+  dependencies:
+    bs58check "^2.1.2"
+    dhttp "^3.0.3"
+    randombytes "^2.1.0"
+
 release-zalgo@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/release-zalgo/download/release-zalgo-1.0.0.tgz#09700b7e5074329739330e535c5a90fb67851730"
@@ -1796,6 +1824,11 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.npm.taobao.org/sprintf-js/download/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha1-BOaSb2YolTVPPdAVIDYzuFcpfiw=
+
+statuses@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.npm.taobao.org/statuses/download/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
+  integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
 
 "string-width@^1.0.2 || 2":
   version "2.1.1"
