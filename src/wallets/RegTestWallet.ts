@@ -50,7 +50,10 @@ export class RegTestWallet extends BtcWallet {
     const tx = await this.getTransition(meta, inputs, outputs);
 
     await this.broadcase(tx.toHex());
-    await this.verify(tx.getId(), outputs.slice(0, -1));
+    await this.verify(
+      tx.getId(),
+      changeMoney > 0 ? outputs.slice(0, -1) : outputs
+    );
   }
 
   protected async getTransition(meta: AddressMeta, inputs: Unspent[], outputs: Output[]) {
