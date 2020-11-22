@@ -15,7 +15,14 @@ export interface Output {
   value: number;
 };
 
-const BIP_49 = 49;
+export interface AddressMeta {
+  payment: payments.Payment;
+  address: string;
+  publicKey: string;
+  privateKey: string;
+}
+
+export const BIP_49 = 49;
 
 export class BtcWallet extends Wallet {
   protected network: Network;
@@ -26,7 +33,7 @@ export class BtcWallet extends Wallet {
     isBip49 && (this.purpose = BIP_49);
   }
 
-  getAddress(account: number = 0, index: number = 0, internal: boolean = false) {
+  getAddress(account: number = 0, index: number = 0, internal: boolean = false): AddressMeta {
     const derivePath = this.getDerivePath(account, index, internal);
     const child = this.getRoot().derivePath(derivePath);
 
@@ -35,6 +42,7 @@ export class BtcWallet extends Wallet {
       : payments.p2pkh({ pubkey: child.publicKey, network: this.network });
 
     return {
+      payment,
       address: payment.address!,
       get privateKey() {
         return child.toWIF();

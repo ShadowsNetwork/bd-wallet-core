@@ -36,6 +36,13 @@ it ('create btc bip44 addresses with network of regtest', () => {
   expect(wallet.getAddress(0, 59).address).to.equal('mmqjutwQVV76vM9rnzDtC5qpH47GqZVQnr');
 });
 
+it ('create btc bip49 addresses with network of regtest', () => {
+  const wallet = new RegTestWallet('rate myth arrest property shrimp board girl master faith venue dawn alien actor oxygen trial enrich deer furnace fox orange foster');
+
+  expect(wallet.getAddress(0, 0).address).to.equal('2N7jD5HDSb9JrcWvVgKgYMUm5bh6M5Ayn3g');
+  expect(wallet.getAddress(0, 59).address).to.equal('2MzS5eYFvsvsNSSsUZjmvuHkxqawZW8sPd5');
+});
+
 it ('create btc bip49 addresses', () => {
   const wallet = new BtcWallet('rate myth arrest property shrimp board girl master faith venue dawn alien actor oxygen trial enrich deer furnace fox orange foster');
 
@@ -46,7 +53,6 @@ it ('create btc bip49 addresses', () => {
   expect(wallet.getAddress(15, 3).address).to.equal('3AGVE1go9fgixV58isELWiY2GUTUDGybAZ');
   expect(wallet.getAddress(15, 18, true).address).to.equal('37YWrXUuENisUJ2Wy5ij2E8V6bw4mt9XMS');
 });
-
 
 it ('create eth bip44 addresses', () => {
   const wallet = new EthWallet('rate myth arrest property shrimp board girl master faith venue dawn alien actor oxygen trial enrich deer furnace fox orange foster');

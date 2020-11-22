@@ -1,6 +1,6 @@
 import { ECPair, networks, Psbt } from 'bitcoinjs-lib';
 import { RegtestUtils } from 'regtest-client';
-import { BtcWallet, Output, Unspent } from './BtcWallet';
+import { AddressMeta, BIP_49, BtcWallet, Output, Unspent } from './BtcWallet';
 import { WordsAmount } from './Wallet';
 
 export class RegTestWallet extends BtcWallet {
@@ -18,9 +18,9 @@ export class RegTestWallet extends BtcWallet {
     return this.regtestUtils.faucet(address, money);
   }
 
-  async send(privateKey: string, fromAddress: string, toAddress: string, outputMoney: number) {
-    const unspents = (await this.getUnspents(fromAddress)).sort((a, b) => b.value - a.value);
-    let fee = await this.calcuteFee(unspents, privateKey, fromAddress, toAddress, outputMoney, 0);
+  async send(meta: AddressMeta, toAddress: string, outputMoney: number) {
+    const unspents = (await this.getUnspents(meta.address)).sort((a, b) => b.value - a.value);
+    let fee = await this.calcuteFee(unspents, meta, toAddress, outputMoney, 0);
     const inputs: Unspent[] = [];
     let totalMoney = 0;
 
@@ -43,26 +43,34 @@ export class RegTestWallet extends BtcWallet {
     }];
     let changeMoney = totalMoney - outputMoney - fee;
     changeMoney > 0 && outputs.push({
-      address: fromAddress,
+      address: meta.address,
       value: changeMoney,
     });
 
-    const tx = await this.getTransition(privateKey, inputs, outputs);
+    const tx = await this.getTransition(meta, inputs, outputs);
 
     await this.broadcase(tx.toHex());
     await this.verify(tx.getId(), outputs.slice(0, -1));
   }
 
-  async getTransition(privateKey: string, inputs: Unspent[], outputs: Output[]) {
-    const pair = ECPair.fromWIF(privateKey, this.network);
+  protected async getTransition(meta: AddressMeta, inputs: Unspent[], outputs: Output[]) {
+    const pair = ECPair.fromWIF(meta.privateKey, this.network);
     const utxos = await Promise.all(inputs.map((input) => this.getUtxo(input.txId)));
 
     const psbt = new Psbt({ network: this.network })
-      .addInputs(inputs.map((input, index) => ({
-        hash: input.txId,
-        index: input.vout,
-        nonWitnessUtxo: Buffer.from(utxos[index].txHex, 'hex'),
-      })))
+      .addInputs(inputs.map((input, index) => {
+        const data: Parameters<Psbt['addInputs']>[0][number] = {
+          hash: input.txId,
+          index: input.vout,
+          nonWitnessUtxo: Buffer.from(utxos[index].txHex, 'hex'),
+        };
+
+        if (this.purpose === BIP_49) {
+          data.redeemScript = meta.payment.redeem?.output;
+        }
+
+        return data;
+      }))
       .addOutputs(outputs);
 
     psbt.signAllInputs(pair).validateSignaturesOfAllInputs();
@@ -80,7 +88,7 @@ export class RegTestWallet extends BtcWallet {
     }));
   }
 
-  async calcuteFee(unspents: Unspent[], privateKey: string, fromAddress: string, toAddress: string, outputMoney: number, expectedFee: number = 0) {
+  async calcuteFee(unspents: Unspent[], meta: AddressMeta, toAddress: string, outputMoney: number, expectedFee: number = 0) {
     const feeRate = await this.getFeeRate();
     const inputs: Unspent[] = [];
     let totalMoney = 0;
@@ -104,15 +112,15 @@ export class RegTestWallet extends BtcWallet {
     }
 
     changeMoney > 0 && outputs.push({
-      address: fromAddress,
+      address: meta.address,
       value: changeMoney,
     });
 
-    const tx = await this.getTransition(privateKey, inputs, outputs);
+    const tx = await this.getTransition(meta, inputs, outputs);
     let fee = (tx.virtualSize() + inputs.length) * feeRate;
 
     if (totalMoney - outputMoney - fee < 0) {
-      fee = await this.calcuteFee(unspents, privateKey, fromAddress, toAddress, outputMoney, fee);
+      fee = await this.calcuteFee(unspents, meta, toAddress, outputMoney, fee);
       if (totalMoney - outputMoney - fee < 0) {
         return -1;
       }
