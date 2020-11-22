@@ -1,9 +1,9 @@
 import { networks } from 'bitcoinjs-lib';
 import { RegtestUtils } from 'regtest-client';
-import { BtcWallet, Output } from './BtcWallet';
-import { WordsAmount } from './Wallet';
+import { BtcWallet, Output } from '../src/wallets/BtcWallet';
+import { WordsAmount } from '../src/wallets/Wallet';
 
-export class RegTestWallet extends BtcWallet {
+export class BtcTestWallet extends BtcWallet {
   protected readonly regtestUtils: RegtestUtils;
 
   constructor(str: WordsAmount | string = 12, isBip49: boolean = true) {
@@ -39,10 +39,6 @@ export class RegTestWallet extends BtcWallet {
 
   protected broadcast(txHex: string) {
     return this.regtestUtils.broadcast(txHex);
-  }
-
-  protected async getFeeRate() {
-    return Promise.resolve().then(() => 1);
   }
 
   protected getId() {

@@ -1,4 +1,5 @@
-import { bip32, ECPair, Network, networks, payments, Psbt } from 'bitcoinjs-lib';
+import { fromSeed } from 'bip32';
+import { ECPair, Network, networks, payments, Psbt } from 'bitcoinjs-lib';
 import { Wallet, WordsAmount } from './Wallet';
 
 export interface Unspent {
@@ -14,7 +15,7 @@ export interface Output {
   value: number;
 };
 
-export interface AddressMeta {
+export interface BtcAddressMeta {
   payment: payments.Payment;
   address: string;
   publicKey: string;
@@ -51,7 +52,7 @@ export class BtcWallet extends Wallet {
     isBip49 && (this.purpose = BIP_49);
   }
 
-  getAddress(account: number = 0, index: number = 0, internal: boolean = false): AddressMeta {
+  getAddress(account: number = 0, index: number = 0, internal: boolean = false): BtcAddressMeta {
     const derivePath = this.getDerivePath(account, index, internal);
     const child = this.getRoot().derivePath(derivePath);
 
@@ -72,10 +73,10 @@ export class BtcWallet extends Wallet {
   }
 
   getRoot() {
-    return this.cacheRootKey(() => bip32.fromSeed(this.seed, this.network));
+    return this.cacheRootKey(() => fromSeed(this.seed, this.network));
   }
 
-  async send(meta: AddressMeta, toAddress: string, outputMoney: number, feeRate: number) {
+  async send(meta: BtcAddressMeta, toAddress: string, outputMoney: number, feeRate: number) {
     const unspents = (await this.getUnspents(meta.address)).sort((a, b) => b.value - a.value);
     let fee = await this.calcuteFee(unspents, meta, toAddress, outputMoney, feeRate, 0);
     const inputs: Unspent[] = [];
@@ -113,7 +114,7 @@ export class BtcWallet extends Wallet {
     );
   }
 
-  async calcuteFee(unspents: Unspent[], meta: AddressMeta, toAddress: string, outputMoney: number, feeRate: number, expectedFee: number) {
+  async calcuteFee(unspents: Unspent[], meta: BtcAddressMeta, toAddress: string, outputMoney: number, feeRate: number, expectedFee: number) {
     const inputs: Unspent[] = [];
     let totalMoney = 0;
 
@@ -153,7 +154,7 @@ export class BtcWallet extends Wallet {
     return fee;
   }
 
-  protected async getTransaction(meta: AddressMeta, inputs: Unspent[], outputs: Output[]) {
+  protected async getTransaction(meta: BtcAddressMeta, inputs: Unspent[], outputs: Output[]) {
     const pair = ECPair.fromWIF(meta.privateKey, this.network);
     const utxos = await Promise.all(inputs.map((input) => this.getUtxo(input.txId)));
 

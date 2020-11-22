@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { BtcWallet, EthWallet } from '../src';
+import { BtcWallet } from '../src';
 
 it ('can generate root key by mnimonic of 12 words', () => {
   const wallet = new BtcWallet('find involve enhance extend nut forum hollow update seed benefit elevator they');
@@ -23,12 +23,4 @@ it ('can generate root key mnimonic of 21 words', () => {
   const wallet = new BtcWallet('rate myth arrest property shrimp board girl master faith venue dawn alien actor oxygen trial enrich deer furnace fox orange foster');
   expect(wallet.getSeed().toString('hex')).to.equal('feebab8c444f51c619745987b59b54a368844acec0e43cc4aa5017bda7a53b9ef87216f4a74fc43d96b22d2b246861a2e28c3d5de4e51ac24b07536853c42483');
   expect(wallet.getRoot().toBase58()).to.equal('xprv9s21ZrQH143K4EWk1RnyAeQ2h7Cev565FPBa68ZVF667Vu1k8aw9MBPCRDeCa2c9nbYKQZTmuWPza3Q4kMP2RVCU8udgYa5W5N2bbtELxmY');
-});
-
-it ('btc and eth have the same root key', () => {
-  const mnimonic = 'rate myth arrest property shrimp board girl master faith venue dawn alien actor oxygen trial enrich deer furnace fox orange foster';
-  const btc = new BtcWallet(mnimonic);
-  const eth = new EthWallet(mnimonic);
-
-  expect(btc.getRoot().toBase58()).to.equal(eth.getRoot().toBase58());
 });

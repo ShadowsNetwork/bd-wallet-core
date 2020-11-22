@@ -1,8 +1,9 @@
 import { expect } from 'chai';
-import { RegTestWallet } from '../src/wallets/RegTestWallet';
+import { BtcTestWallet } from './BtcTestWallet';
+import { EthTestWallet } from './EthTestWallet';
 
-it ('create an transition for bip44', async () => {
-  const wallet = new RegTestWallet(12, false);
+it ('create an btc transition for bip44', async () => {
+  const wallet = new BtcTestWallet(12, false);
   const meta = wallet.getAddress();
 
   let unspents = await wallet.getUnspents(meta.address);
@@ -29,8 +30,8 @@ it ('create an transition for bip44', async () => {
   expect(unspents[0].value).to.equal(change);
 });
 
-it ('create an transition for bip44 with multi inputs', async () => {
-  const wallet = new RegTestWallet(15, false);
+it ('create an btc transition for bip44 with multi inputs', async () => {
+  const wallet = new BtcTestWallet(15, false);
   const meta = wallet.getAddress();
 
   await wallet.applyMoney(meta.address, 2000);
@@ -53,9 +54,8 @@ it ('create an transition for bip44 with multi inputs', async () => {
   expect(unspents[1].value).to.equal(change);
 });
 
-
-it ('create an transition for bip49', async () => {
-  const wallet = new RegTestWallet(15, true);
+it ('create an btc transition for bip49', async () => {
+  const wallet = new BtcTestWallet(15, true);
   const meta = wallet.getAddress();
 
   let unspents = await wallet.getUnspents(meta.address);
@@ -80,4 +80,23 @@ it ('create an transition for bip49', async () => {
 
   expect(unspents).to.have.length(1);
   expect(unspents[0].value).to.equal(change);
+});
+
+it ('create eth transaction', async () => {
+  const wallet = new EthTestWallet(
+    'vague zone verb adjust hamster often mirror come explain entry truck zero torch luxury fashion',
+    'https://rinkeby.infura.io/v3/56b8a1113e87427185552ad5e9c54285'
+  );
+  const meta = wallet.getAddress(0, 1);
+  const targetAddress = '0x2E1e279e6a1F7fF0f6EB4ac48F9091D8202F777F';  // wallet.getAddress(0, 2)
+  const balance = await wallet.getWeb3().eth.getBalance(targetAddress);
+
+  await wallet.send(meta.privateKey, targetAddress, 2);
+  const newBalance = await wallet.getWeb3().eth.getBalance(targetAddress);
+
+  expect(Number(newBalance) - Number(balance)).to.equal(2);
+
+  await wallet.send(meta.privateKey, targetAddress, 3);
+  const latestBalance = await wallet.getWeb3().eth.getBalance(targetAddress);
+  expect(Number(latestBalance) - Number(balance)).to.equal(5);
 });
