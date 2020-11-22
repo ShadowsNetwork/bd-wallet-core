@@ -88,7 +88,7 @@ it ('create eth transaction', async () => {
     'https://rinkeby.infura.io/v3/56b8a1113e87427185552ad5e9c54285'
   );
   const meta = wallet.getAddress(0, 1);
-  const targetAddress = '0x2E1e279e6a1F7fF0f6EB4ac48F9091D8202F777F';  // wallet.getAddress(0, 2)
+  const targetAddress = wallet.getAddress(0, 2).address;
   const balance = await wallet.getWeb3().eth.getBalance(targetAddress);
 
   await wallet.send(meta.privateKey, targetAddress, 2);
