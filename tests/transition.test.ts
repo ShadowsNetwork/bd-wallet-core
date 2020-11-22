@@ -17,11 +17,11 @@ it ('create an transition for bip44', async () => {
 
   const toAddress = 'n2Ctbobmzo5o8JZYg38rKK7Pg6KAoS8EaE';
   const outputMoney = 500;
-  let fee = await wallet.calcuteFee(unspents, meta, toAddress, 10000, 0);
+  let fee = await wallet.calcuteFee(unspents, meta, toAddress, 10000, 2, 0);
   expect(fee).to.equal(-1);
 
-  fee = await wallet.calcuteFee(unspents, meta, toAddress, outputMoney, 0);
-  await wallet.send(meta, toAddress, outputMoney);
+  fee = await wallet.calcuteFee(unspents, meta, toAddress, outputMoney, 2, 0);
+  await wallet.send(meta, toAddress, outputMoney, 2);
   unspents = await wallet.getUnspents(meta.address);
   const change = 10000 - outputMoney - fee;
 
@@ -43,10 +43,10 @@ it ('create an transition for bip44 with multi inputs', async () => {
 
   expect(unspents).to.have.length(3);
 
-  const fee = await wallet.calcuteFee(unspents, meta, toAddress, outputMoney, 0);
+  const fee = await wallet.calcuteFee(unspents, meta, toAddress, outputMoney, 2, 0);
   const change = 2000 + 2000 - outputMoney - fee;
 
-  await wallet.send(meta, toAddress, outputMoney);
+  await wallet.send(meta, toAddress, outputMoney, 2);
   unspents = await wallet.getUnspents(meta.address);
 
   expect(unspents).to.have.length(2);
@@ -70,11 +70,11 @@ it ('create an transition for bip49', async () => {
 
   const toAddress = '2MzS5eYFvsvsNSSsUZjmvuHkxqawZW8sPd5';
   const outputMoney = 3000;
-  let fee = await wallet.calcuteFee(unspents, meta, toAddress, 10000, 0);
+  let fee = await wallet.calcuteFee(unspents, meta, toAddress, 10000, 2, 0);
   expect(fee).to.equal(-1);
 
-  fee = await wallet.calcuteFee(unspents, meta, toAddress, outputMoney, 0);
-  await wallet.send(meta, toAddress, outputMoney);
+  fee = await wallet.calcuteFee(unspents, meta, toAddress, outputMoney, 2, 0);
+  await wallet.send(meta, toAddress, outputMoney, 2);
   unspents = await wallet.getUnspents(meta.address);
   const change = 10000 - outputMoney - fee;
 
