@@ -9,26 +9,19 @@ on:
 jobs:
   test:
     if: "!contains(toJson(github.event.commits), '[skip ci]')"
-    strategy:
-      matrix:
-        node-version: [12.13.x]
-        ts-version: [3.9.x, 4.0.x, 4.1.x]
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }} & Typescript ${{ matrix.ts-version }}
+    - name: Use Node.js 12.13.x
       uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node-version }}
-    - run: |
-        yarn install
-        yarn add typescript@${{ matrix.ts-version }} --dev
+        node-version: 12.13.x
+    - run: yarn install
     - run: |
         docker pull junderw/bitcoinjs-regtest-server
         docker run -d -p 127.0.0.1:8080:8080 junderw/bitcoinjs-regtest-server
     - run: yarn test
     - name: Coverage
       uses: codecov/codecov-action@v1
-      if: matrix.node-version == '12.13.x' && matrix.ts-version == '3.9.x' && github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/master'
