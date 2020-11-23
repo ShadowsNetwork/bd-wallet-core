@@ -39,11 +39,10 @@ export class EthWallet extends Wallet {
     };
   }
 
-  async send(privateKey: string, toAddress: string, outputMoney: number, gas: number = 21000, gasPrice?: number) {
+  async send(privateKey: string, toAddress: string, outputMoney: number, gas: number = 21000) {
     const tx = await this.web3.eth.accounts.signTransaction({
       ...this.transactionConfig,
       gas: intToHex(gas),
-      gasPrice: intToHex(gasPrice || Number(await this.web3.eth.getGasPrice())),
       to: toAddress,
       value: intToHex(outputMoney),
     }, privateKey);
