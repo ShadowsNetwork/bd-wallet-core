@@ -18,9 +18,7 @@ jobs:
       with:
         node-version: 12.13.x
     - run: yarn install
-    - run: |
-        docker pull junderw/bitcoinjs-regtest-server
-        docker run -d -p 127.0.0.1:8080:8080 junderw/bitcoinjs-regtest-server
+    - run: docker pull junderw/bitcoinjs-regtest-server
     - run: yarn test
     - name: Coverage
       uses: codecov/codecov-action@v1

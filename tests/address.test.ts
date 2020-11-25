@@ -1,21 +1,21 @@
 import { expect } from 'chai';
-import { cryptoWaitReady } from '@polkadot/util-crypto';
-import { BtcWallet, DotWallet, EthWallet } from '../src';
+import { BtcWallet, EthWallet } from '../src';
 import { BtcTestWallet } from './BtcTestWallet';
+import { DotTestWallet } from './DotTestWallet';
 
 it ('polkdot has infinite addresses', async () => {
-  await cryptoWaitReady();
+  const wallet = new DotTestWallet('spare spin knife toward eye entry aspect clinic stadium segment tomato eyebrow');
+  await wallet.waitReady();
 
-  const wallet = new DotWallet('spare spin knife toward eye entry aspect clinic stadium segment tomato eyebrow');
-  expect(wallet.getAddress()).to.equal('5HdNc28ENCXRExupogzgVAGM4tyLsa5WexhELiaVED4TowpG');
-  expect(wallet.getAddress(0)).to.equal('5HTt3wJsc6ZKz3wW2BTVBRPTQNyYsPr5j2odFJSguxuukjZ8');
-  expect(wallet.getAddress(1)).to.equal('5CoYUMmmu7LrrdFP6TKWVQgMHuCMXq85jhUsYKXascJG1Uvv');
-  expect(wallet.getAddress(2)).to.equal('5CwNzJMnZ9GBUkhY5d1SHJ6Yk6fKt2Zw9XWZxyfZQYDhnnHK');
+  expect(wallet.getAddress().address).to.equal('5HdNc28ENCXRExupogzgVAGM4tyLsa5WexhELiaVED4TowpG');
+  expect(wallet.getAddress(0).address).to.equal('5HTt3wJsc6ZKz3wW2BTVBRPTQNyYsPr5j2odFJSguxuukjZ8');
+  expect(wallet.getAddress(1).address).to.equal('5CoYUMmmu7LrrdFP6TKWVQgMHuCMXq85jhUsYKXascJG1Uvv');
+  expect(wallet.getAddress(2).address).to.equal('5CwNzJMnZ9GBUkhY5d1SHJ6Yk6fKt2Zw9XWZxyfZQYDhnnHK');
 
-  expect(wallet.getAddress(1, 0)).to.equal('5EZhm419Ks6zVb2mcP13gUGNnc9zLiULgo6dfab745yqxzjQ');
-  expect(wallet.getAddress(1, 0, 0)).to.equal('5GN1ZCk43meT8yRHbxHXGLjnfcQBriJdYLskpDpyWY5Fgx52');
-  expect(wallet.getAddress(1, 0, 0, 0)).to.equal('5Cyz784L8vCCehNW57F5U1tP6FJqBUGRj6ruoZZLYnn6fmjz');
-  expect(wallet.getAddress(1, 0, 0, 1)).to.equal('5EDCJHCFF9kerzDYnBY36uiaW7cwpLYP58FEVFkgx393ccFY');
+  expect(wallet.getAddress(1, 0).address).to.equal('5EZhm419Ks6zVb2mcP13gUGNnc9zLiULgo6dfab745yqxzjQ');
+  expect(wallet.getAddress(1, 0, 0).address).to.equal('5GN1ZCk43meT8yRHbxHXGLjnfcQBriJdYLskpDpyWY5Fgx52');
+  expect(wallet.getAddress(1, 0, 0, 0).address).to.equal('5Cyz784L8vCCehNW57F5U1tP6FJqBUGRj6ruoZZLYnn6fmjz');
+  expect(wallet.getAddress(1, 0, 0, 1).address).to.equal('5EDCJHCFF9kerzDYnBY36uiaW7cwpLYP58FEVFkgx393ccFY');
 });
 
 it ('create btc bip44 addresses', () => {

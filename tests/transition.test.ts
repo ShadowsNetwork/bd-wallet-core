@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import { BtcTestWallet } from './BtcTestWallet';
+import { DotTestWallet } from './DotTestWallet';
 import { EthTestWallet } from './EthTestWallet';
 
-it ('create an btc transition for bip44', async () => {
+it ('create an btc transaction for bip44', async () => {
   const wallet = new BtcTestWallet(12, false);
   const meta = wallet.getAddress();
 
@@ -30,7 +31,7 @@ it ('create an btc transition for bip44', async () => {
   expect(unspents[0].value).to.equal(change);
 });
 
-it ('create an btc transition for bip44 with multi inputs', async () => {
+it ('create an btc transaction for bip44 with multi inputs', async () => {
   const wallet = new BtcTestWallet(15, false);
   const meta = wallet.getAddress();
 
@@ -54,7 +55,7 @@ it ('create an btc transition for bip44 with multi inputs', async () => {
   expect(unspents[1].value).to.equal(change);
 });
 
-it ('create an btc transition for bip49', async () => {
+it ('create an btc transaction for bip49', async () => {
   const wallet = new BtcTestWallet(15, true);
   const meta = wallet.getAddress();
 
@@ -99,4 +100,16 @@ it ('create eth transaction', async () => {
   await wallet.send(meta.privateKey, targetAddress, 3);
   const latestBalance = await wallet.getWeb3().eth.getBalance(targetAddress);
   expect(Number(latestBalance) - Number(balance)).to.equal(5);
+});
+
+it ('create dot transaction', async () => {
+  const wallet = new DotTestWallet('basket eternal level bundle tornado abuse tragic expect nerve clay vote enroll observe year abuse');
+  const result = await wallet.send(
+    wallet.getAddress(),
+    wallet.getAddress(0, 0).address,
+    150000000
+  );
+
+  expect(result.toString()).to.have.length(66);
+  await wallet.disconnect();
 });
