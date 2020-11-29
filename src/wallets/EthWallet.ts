@@ -54,6 +54,7 @@ export class EthWallet extends Wallet {
    * The contract is based on erc20 standard
    */
   async sendContract(meta: EthAddressMeta, toAddress: string, contractAddress: string, outputMoney: number, gas: number) {
+    const { padLeft } = this.web3.utils;
     const functionId = this.web3.eth.abi.encodeFunctionSignature('transfer(address,uint256)');
 
     const tx = await this.web3.eth.accounts.signTransaction({
@@ -63,8 +64,8 @@ export class EthWallet extends Wallet {
       value: intToHex(0),
       data:
         functionId +
-        stripHexPrefix(toAddress).padStart(64, '0') +
-        stripHexPrefix(intToHex(outputMoney)).padStart(64, '0'),
+        padLeft(stripHexPrefix(toAddress), 64) +
+        padLeft(stripHexPrefix(intToHex(outputMoney)), 64),
     }, meta.privateKey);
 
     return this.web3.eth.sendSignedTransaction(tx.rawTransaction!);
