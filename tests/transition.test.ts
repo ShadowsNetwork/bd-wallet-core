@@ -83,23 +83,31 @@ it ('create an btc transaction for bip49', async () => {
   expect(unspents[0].value).to.equal(change);
 });
 
-it ('create eth transaction', async () => {
+it ('create eth accounts transaction', async () => {
   const wallet = new EthTestWallet(
-    'vague zone verb adjust hamster often mirror come explain entry truck zero torch luxury fashion',
-    'https://rinkeby.infura.io/v3/56b8a1113e87427185552ad5e9c54285'
+    'basket eternal level bundle tornado abuse tragic expect nerve clay vote enroll observe year abuse'
   );
-  const meta = wallet.getAddress(0, 1);
-  const targetAddress = wallet.getAddress(0, 2).address;
+  const meta = wallet.getAddress(0, 0);
+  const targetAddress = wallet.getAddress(0, 1).address;
   const balance = await wallet.getWeb3().eth.getBalance(targetAddress);
 
-  await wallet.send(meta.privateKey, targetAddress, 2);
+  await wallet.send(meta, targetAddress, 2000, 21000);
   const newBalance = await wallet.getWeb3().eth.getBalance(targetAddress);
 
-  expect(Number(newBalance) - Number(balance)).to.equal(2);
+  expect(Number(newBalance) - Number(balance)).to.equal(2000);
+});
 
-  await wallet.send(meta.privateKey, targetAddress, 3);
-  const latestBalance = await wallet.getWeb3().eth.getBalance(targetAddress);
-  expect(Number(latestBalance) - Number(balance)).to.equal(5);
+it ('create eth contract transaction', async () => {
+  const wallet = new EthTestWallet(
+    'basket eternal level bundle tornado abuse tragic expect nerve clay vote enroll observe year abuse'
+  );
+  // @see https://ropsten.etherscan.io/token/0x0b7e66f24909bb356133b4979080ffdbe0417004?a=0xf3b35249fd03df13d3c9be1c3fc74d7c333d87a0
+  const meta = wallet.getAddress(0, 0);
+  const targetAddress = wallet.getAddress(0, 1).address;
+
+  const result = await wallet.sendContract(meta, targetAddress, '0x0b7e66f24909bb356133b4979080ffdbe0417004', 1, 60000);
+
+  expect(result.transactionHash).have.length(66);
 });
 
 it ('create dot transaction', async () => {

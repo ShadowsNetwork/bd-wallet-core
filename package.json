@@ -7,7 +7,7 @@
   "repository": "git@github.com:bdwallet/bd-wallet-core.git",
   "license": "Apache-2.0",
   "scripts": {
-    "test": "nyc mocha ./tests/*.test.ts -r ts-node/register --timeout 60000",
+    "test": "nyc mocha ./tests/*.test.ts -r ts-node/register --timeout 60000 --bail",
     "pretest": "if [ -z \"$(docker ps -a | grep btc-server)\" ]; then docker run -d -p 8080:8080 --name \"btc-server\" junderw/bitcoinjs-regtest-server; fi"
   },
   "dependencies": {

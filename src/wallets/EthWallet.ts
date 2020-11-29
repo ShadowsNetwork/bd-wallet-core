@@ -1,5 +1,5 @@
 import { fromSeed } from 'bip32';
-import { addHexPrefix, intToHex, publicToAddress, toChecksumAddress } from 'ethereumjs-util';
+import { addHexPrefix, intToHex, publicToAddress, stripHexPrefix, toChecksumAddress } from 'ethereumjs-util';
 import Web3 from 'web3';
 import { provider, TransactionConfig } from 'web3-core';
 import { Wallet, WordsAmount } from './Wallet';
@@ -39,13 +39,33 @@ export class EthWallet extends Wallet {
     };
   }
 
-  async send(privateKey: string, toAddress: string, outputMoney: number, gas: number = 21000) {
+  async send(meta: EthAddressMeta, toAddress: string, outputMoney: number, gas: number) {
     const tx = await this.web3.eth.accounts.signTransaction({
       ...this.transactionConfig,
       gas: intToHex(gas),
       to: toAddress,
       value: intToHex(outputMoney),
-    }, privateKey);
+    }, meta.privateKey);
+
+    return this.web3.eth.sendSignedTransaction(tx.rawTransaction!);
+  }
+
+  /**
+   * The contract is based on erc20 standard
+   */
+  async sendContract(meta: EthAddressMeta, toAddress: string, contractAddress: string, outputMoney: number, gas: number) {
+    const functionId = this.web3.eth.abi.encodeFunctionSignature('transfer(address,uint256)');
+
+    const tx = await this.web3.eth.accounts.signTransaction({
+      ...this.transactionConfig,
+      gas: intToHex(gas),
+      to: contractAddress,
+      value: intToHex(0),
+      data:
+        functionId +
+        stripHexPrefix(toAddress).padStart(64, '0') +
+        stripHexPrefix(intToHex(outputMoney)).padStart(64, '0'),
+    }, meta.privateKey);
 
     return this.web3.eth.sendSignedTransaction(tx.rawTransaction!);
   }
