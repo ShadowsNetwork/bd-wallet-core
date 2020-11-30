@@ -3,6 +3,8 @@ import { ApiPromise, Keyring, WsProvider } from '@polkadot/api';
 import { KeyringPair } from '@polkadot/keyring/types';
 import { waitReady } from '@polkadot/wasm-crypto';
 
+export type DotAccount = KeyringPair;
+
 const keyring = new Keyring({ type: 'sr25519' });
 
 export class DotWallet extends Wallet {
@@ -18,7 +20,7 @@ export class DotWallet extends Wallet {
     return waitReady();
   }
 
-  getAddress(...indexes: number[]) {
+  getAccount(...indexes: number[]): DotAccount {
     if (!indexes.length) {
       return this.getRoot();
     }
@@ -42,9 +44,9 @@ export class DotWallet extends Wallet {
     return this.api;
   }
 
-  async send(pair: KeyringPair, toAddress: string, outputMoney: number) {
+  async send(account: DotAccount, toAddress: string, outputMoney: number) {
     const api = await this.getApi();
-    const data = await api.tx.balances.transfer(toAddress, outputMoney).signAndSend(pair);
+    const data = await api.tx.balances.transfer(toAddress, outputMoney).signAndSend(account);
 
     return data;
   }

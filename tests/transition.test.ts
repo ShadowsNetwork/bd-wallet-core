@@ -5,7 +5,7 @@ import { EthTestWallet } from './EthTestWallet';
 
 it ('create an btc transaction for bip44', async () => {
   const wallet = new BtcTestWallet(12, false);
-  const meta = wallet.getAddress();
+  const meta = wallet.getAccount();
 
   let unspents = await wallet.getUnspents(meta.address);
   expect(unspents).to.have.length(0);
@@ -33,7 +33,7 @@ it ('create an btc transaction for bip44', async () => {
 
 it ('create an btc transaction for bip44 with multi inputs', async () => {
   const wallet = new BtcTestWallet(15, false);
-  const meta = wallet.getAddress();
+  const meta = wallet.getAccount();
 
   await wallet.applyMoney(meta.address, 2000);
   await wallet.applyMoney(meta.address, 2000);
@@ -57,7 +57,7 @@ it ('create an btc transaction for bip44 with multi inputs', async () => {
 
 it ('create an btc transaction for bip49', async () => {
   const wallet = new BtcTestWallet(15, true);
-  const meta = wallet.getAddress();
+  const meta = wallet.getAccount();
 
   let unspents = await wallet.getUnspents(meta.address);
   expect(unspents).to.have.length(0);
@@ -87,8 +87,8 @@ it ('create eth accounts transaction', async () => {
   const wallet = new EthTestWallet(
     'basket eternal level bundle tornado abuse tragic expect nerve clay vote enroll observe year abuse'
   );
-  const meta = wallet.getAddress(0, 0);
-  const targetAddress = wallet.getAddress(0, 1).address;
+  const meta = wallet.getAccount(0, 0);
+  const targetAddress = wallet.getAccount(0, 1).address;
   const balance = await wallet.getWeb3().eth.getBalance(targetAddress);
 
   await wallet.send(meta, targetAddress, 2000, 21000);
@@ -102,8 +102,8 @@ it ('create eth contract transaction', async () => {
     'basket eternal level bundle tornado abuse tragic expect nerve clay vote enroll observe year abuse'
   );
   // @see https://ropsten.etherscan.io/token/0x0b7e66f24909bb356133b4979080ffdbe0417004?a=0xf3b35249fd03df13d3c9be1c3fc74d7c333d87a0
-  const meta = wallet.getAddress(0, 0);
-  const targetAddress = wallet.getAddress(0, 1).address;
+  const meta = wallet.getAccount(0, 0);
+  const targetAddress = wallet.getAccount(0, 1).address;
 
   const result = await wallet.sendContract(meta, targetAddress, '0x0b7e66f24909bb356133b4979080ffdbe0417004', 1, 60000);
 
@@ -113,8 +113,8 @@ it ('create eth contract transaction', async () => {
 it ('create dot transaction', async () => {
   const wallet = new DotTestWallet('basket eternal level bundle tornado abuse tragic expect nerve clay vote enroll observe year abuse');
   const result = await wallet.send(
-    wallet.getAddress(),
-    wallet.getAddress(0, 0).address,
+    wallet.getAccount(),
+    wallet.getAccount(0, 0).address,
     150000000
   );
 

@@ -4,7 +4,7 @@ import Web3 from 'web3';
 import { provider, TransactionConfig } from 'web3-core';
 import { Wallet, WordsAmount } from './Wallet';
 
-export interface EthAddressMeta {
+export interface EthAccount {
   address: string;
   publicKey: string;
   privateKey: string;
@@ -23,7 +23,7 @@ export class EthWallet extends Wallet {
     };
   }
 
-  getAddress(account: number = 0, index: number = 0, internal: boolean = false): EthAddressMeta {
+  getAccount(account: number = 0, index: number = 0, internal: boolean = false): EthAccount {
     const derivePath = this.getDerivePath(account, index, internal);
     const child = this.getRoot().derivePath(derivePath);
     const address = publicToAddress(child.publicKey, true).toString('hex');
@@ -39,13 +39,13 @@ export class EthWallet extends Wallet {
     };
   }
 
-  async send(meta: EthAddressMeta, toAddress: string, outputMoney: number, gas: number) {
+  async send(account: EthAccount, toAddress: string, outputMoney: number, gas: number) {
     const tx = await this.web3.eth.accounts.signTransaction({
       ...this.transactionConfig,
       gas: intToHex(gas),
       to: toAddress,
       value: intToHex(outputMoney),
-    }, meta.privateKey);
+    }, account.privateKey);
 
     return this.web3.eth.sendSignedTransaction(tx.rawTransaction!);
   }
@@ -53,7 +53,7 @@ export class EthWallet extends Wallet {
   /**
    * The contract is based on erc20 standard
    */
-  async sendContract(meta: EthAddressMeta, toAddress: string, contractAddress: string, outputMoney: number, gas: number) {
+  async sendContract(account: EthAccount, toAddress: string, contractAddress: string, outputMoney: number, gas: number) {
     const { padLeft } = this.web3.utils;
     const functionId = this.web3.eth.abi.encodeFunctionSignature('transfer(address,uint256)');
 
@@ -66,7 +66,7 @@ export class EthWallet extends Wallet {
         functionId +
         padLeft(stripHexPrefix(toAddress), 64) +
         padLeft(stripHexPrefix(intToHex(outputMoney)), 64),
-    }, meta.privateKey);
+    }, account.privateKey);
 
     return this.web3.eth.sendSignedTransaction(tx.rawTransaction!);
   }

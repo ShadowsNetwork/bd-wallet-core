@@ -15,7 +15,7 @@ export interface Output {
   value: number;
 };
 
-export interface BtcAddressMeta {
+export interface BtcAccount {
   payment: payments.Payment;
   address: string;
   publicKey: string;
@@ -52,7 +52,7 @@ export class BtcWallet extends Wallet {
     isBip49 && (this.purpose = BIP_49);
   }
 
-  getAddress(account: number = 0, index: number = 0, internal: boolean = false): BtcAddressMeta {
+  getAccount(account: number = 0, index: number = 0, internal: boolean = false): BtcAccount {
     const derivePath = this.getDerivePath(account, index, internal);
     const child = this.getRoot().derivePath(derivePath);
 
@@ -76,9 +76,9 @@ export class BtcWallet extends Wallet {
     return this.cacheRootKey(() => fromSeed(this.seed, this.network));
   }
 
-  async send(meta: BtcAddressMeta, toAddress: string, outputMoney: number, feeRate: number) {
-    const unspents = (await this.getUnspents(meta.address)).sort((a, b) => b.value - a.value);
-    let fee = await this.calcuteFee(unspents, meta, toAddress, outputMoney, feeRate, 0);
+  async send(account: BtcAccount, toAddress: string, outputMoney: number, feeRate: number) {
+    const unspents = (await this.getUnspents(account.address)).sort((a, b) => b.value - a.value);
+    let fee = await this.calcuteFee(unspents, account, toAddress, outputMoney, feeRate, 0);
     const inputs: Unspent[] = [];
     let totalMoney = 0;
 
@@ -101,11 +101,11 @@ export class BtcWallet extends Wallet {
     }];
     let changeMoney = totalMoney - outputMoney - fee;
     changeMoney > 0 && outputs.push({
-      address: meta.address,
+      address: account.address,
       value: changeMoney,
     });
 
-    const tx = await this.getTransaction(meta, inputs, outputs);
+    const tx = await this.getTransaction(account, inputs, outputs);
 
     await this.broadcast(tx.toHex());
     await this.verify(
@@ -114,7 +114,7 @@ export class BtcWallet extends Wallet {
     );
   }
 
-  async calcuteFee(unspents: Unspent[], meta: BtcAddressMeta, toAddress: string, outputMoney: number, feeRate: number, expectedFee: number) {
+  async calcuteFee(unspents: Unspent[], meta: BtcAccount, toAddress: string, outputMoney: number, feeRate: number, expectedFee: number) {
     const inputs: Unspent[] = [];
     let totalMoney = 0;
 
@@ -154,7 +154,7 @@ export class BtcWallet extends Wallet {
     return fee;
   }
 
-  protected async getTransaction(meta: BtcAddressMeta, inputs: Unspent[], outputs: Output[]) {
+  protected async getTransaction(meta: BtcAccount, inputs: Unspent[], outputs: Output[]) {
     const pair = ECPair.fromWIF(meta.privateKey, this.network);
     const utxos = await Promise.all(inputs.map((input) => this.getUtxo(input.txId)));
 
