@@ -374,34 +374,34 @@
   resolved "https://registry.npm.taobao.org/@istanbuljs/schema/download/@istanbuljs/schema-0.1.2.tgz#26520bf09abe4a5644cd5414e37125a8954241dd"
   integrity sha1-JlIL8Jq+SlZEzVQU43ElqJVCQd0=
 
-"@polkadot/api-derive@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.npm.taobao.org/@polkadot/api-derive/download/@polkadot/api-derive-2.8.1.tgz#e997625e95dce217087ff14199116d3520c7bf19"
-  integrity sha1-6ZdiXpXc4hcIf/FBmRFtNSDHvxk=
+"@polkadot/api-derive@2.9.1":
+  version "2.9.1"
+  resolved "https://registry.npmjs.org/@polkadot/api-derive/-/api-derive-2.9.1.tgz#e7f496d1b26f82471b649851e6d913769752ae2a"
+  integrity sha512-AIdWHbRcqXhymRDNrdR+WQHpDK131doFkOgR+7ZjoiI6PVMW79nqFCzlf/mBpdHGP2oBpx5Fc/YEIz5JyYm1hw==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@polkadot/api" "2.8.1"
-    "@polkadot/rpc-core" "2.8.1"
-    "@polkadot/types" "2.8.1"
+    "@polkadot/api" "2.9.1"
+    "@polkadot/rpc-core" "2.9.1"
+    "@polkadot/types" "2.9.1"
     "@polkadot/util" "^4.2.1"
     "@polkadot/util-crypto" "^4.2.1"
     bn.js "^4.11.9"
     memoizee "^0.4.14"
     rxjs "^6.6.3"
 
-"@polkadot/api@2.8.1", "@polkadot/api@^2.8.1":
-  version "2.8.1"
-  resolved "https://registry.npm.taobao.org/@polkadot/api/download/@polkadot/api-2.8.1.tgz#1259260b54723788fb48a2ea4e1d25cd6b9c4b38"
-  integrity sha1-ElkmC1RyN4j7SKLqTh0lzWucSzg=
+"@polkadot/api@2.9.1", "@polkadot/api@^2.9.1":
+  version "2.9.1"
+  resolved "https://registry.npmjs.org/@polkadot/api/-/api-2.9.1.tgz#ed594b7da3421230408250d2bb5564a45a4917fc"
+  integrity sha512-4yVLFiU9L8uawFJYGmkN4IcwtkXaw4exaXDP1qVzcFoLqKnn0bKsBNXdeB6Va1uM6bZwfLW6kkIsn3i7lHMgpg==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@polkadot/api-derive" "2.8.1"
+    "@polkadot/api-derive" "2.9.1"
     "@polkadot/keyring" "^4.2.1"
-    "@polkadot/metadata" "2.8.1"
-    "@polkadot/rpc-core" "2.8.1"
-    "@polkadot/rpc-provider" "2.8.1"
-    "@polkadot/types" "2.8.1"
-    "@polkadot/types-known" "2.8.1"
+    "@polkadot/metadata" "2.9.1"
+    "@polkadot/rpc-core" "2.9.1"
+    "@polkadot/rpc-provider" "2.9.1"
+    "@polkadot/types" "2.9.1"
+    "@polkadot/types-known" "2.9.1"
     "@polkadot/util" "^4.2.1"
     "@polkadot/util-crypto" "^4.2.1"
     bn.js "^4.11.9"
@@ -417,14 +417,14 @@
     "@polkadot/util" "4.2.1"
     "@polkadot/util-crypto" "4.2.1"
 
-"@polkadot/metadata@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.npm.taobao.org/@polkadot/metadata/download/@polkadot/metadata-2.8.1.tgz#2cb64aa99d7cc99efebf5c25344c0e5d748af575"
-  integrity sha1-LLZKqZ18yZ7+v1wlNEwOXXSK9XU=
+"@polkadot/metadata@2.9.1":
+  version "2.9.1"
+  resolved "https://registry.npmjs.org/@polkadot/metadata/-/metadata-2.9.1.tgz#2028a0e7fe1060057f9e606cea2b29bf93ec3fd9"
+  integrity sha512-CV5ux4zsRMhPT6cGezqCSNToFASr+JftVgCrIGo05N8KmSds0vy2TaL4c1jPc6c0ZZ6DLLPefnGitPlEdZh6EQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@polkadot/types" "2.8.1"
-    "@polkadot/types-known" "2.8.1"
+    "@polkadot/types" "2.9.1"
+    "@polkadot/types-known" "2.9.1"
     "@polkadot/util" "^4.2.1"
     "@polkadot/util-crypto" "^4.2.1"
     bn.js "^4.11.9"
@@ -436,26 +436,26 @@
   dependencies:
     "@babel/runtime" "^7.12.5"
 
-"@polkadot/rpc-core@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.npm.taobao.org/@polkadot/rpc-core/download/@polkadot/rpc-core-2.8.1.tgz#f569be6e73bb17cbb61d7b79b12c300095bf2535"
-  integrity sha1-9Wm+bnO7F8u2HXt5sSwwAJW/JTU=
+"@polkadot/rpc-core@2.9.1":
+  version "2.9.1"
+  resolved "https://registry.npmjs.org/@polkadot/rpc-core/-/rpc-core-2.9.1.tgz#4048e0fc4561609fb660c065435c13e3b96cf7e4"
+  integrity sha512-Pjqw6QepG1ctfDKOKVfDyDUU4KWshls5LI95N8mRFolkp2wTnCJPp897+4iDtTKUA6S5Dl4pUFypzuo8Ok/wVQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@polkadot/metadata" "2.8.1"
-    "@polkadot/rpc-provider" "2.8.1"
-    "@polkadot/types" "2.8.1"
+    "@polkadot/metadata" "2.9.1"
+    "@polkadot/rpc-provider" "2.9.1"
+    "@polkadot/types" "2.9.1"
     "@polkadot/util" "^4.2.1"
     memoizee "^0.4.14"
     rxjs "^6.6.3"
 
-"@polkadot/rpc-provider@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.npm.taobao.org/@polkadot/rpc-provider/download/@polkadot/rpc-provider-2.8.1.tgz#c2be0def70d7850deb077813b3d6790c440706e2"
-  integrity sha1-wr4N73DXhQ3rB3gTs9Z5DEQHBuI=
+"@polkadot/rpc-provider@2.9.1":
+  version "2.9.1"
+  resolved "https://registry.npmjs.org/@polkadot/rpc-provider/-/rpc-provider-2.9.1.tgz#833d737e42c14b24449535093171bc693b67c4b8"
+  integrity sha512-LLweHTOnpbX7tBhrt5DVAYb0UUXsKosMFlpCQfyoyIQ1ACRT0cnd+AKF8eKf04Ayytg+q/USD8tGGDbH+XElOg==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@polkadot/types" "2.8.1"
+    "@polkadot/types" "2.9.1"
     "@polkadot/util" "^4.2.1"
     "@polkadot/util-crypto" "^4.2.1"
     "@polkadot/x-fetch" "^4.2.1"
@@ -463,23 +463,23 @@
     bn.js "^4.11.9"
     eventemitter3 "^4.0.7"
 
-"@polkadot/types-known@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.npm.taobao.org/@polkadot/types-known/download/@polkadot/types-known-2.8.1.tgz#e1645154218af19837f9c82c3f0f35730258f555"
-  integrity sha1-4WRRVCGK8Zg3+cgsPw81cwJY9VU=
+"@polkadot/types-known@2.9.1":
+  version "2.9.1"
+  resolved "https://registry.npmjs.org/@polkadot/types-known/-/types-known-2.9.1.tgz#8af3a81b09e7e4d6b82d4453240e7e5ab3bb06cd"
+  integrity sha512-veSPubDFQd7Ql8Lxly+pE4fCN+rei7O2j0yGkoCHi06yFxkATqM3aj6DI1Z3g7Uk9kLJTTIb4db3aQbaVFXpNQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@polkadot/types" "2.8.1"
+    "@polkadot/types" "2.9.1"
     "@polkadot/util" "^4.2.1"
     bn.js "^4.11.9"
 
-"@polkadot/types@2.8.1":
-  version "2.8.1"
-  resolved "https://registry.npm.taobao.org/@polkadot/types/download/@polkadot/types-2.8.1.tgz#8904c757b56b0f85569c11d16fedfa465a39dafd"
-  integrity sha1-iQTHV7VrD4VWnBHRb+36Rlo52v0=
+"@polkadot/types@2.9.1":
+  version "2.9.1"
+  resolved "https://registry.npmjs.org/@polkadot/types/-/types-2.9.1.tgz#2e113d30759d69928202b83e67c2caafe632201b"
+  integrity sha512-CaDFaeHgf3RYI7soiXK2V7UghEVwystp+o4LCMeT6UUgxS0I0kOkpNYcjLD5P02gUtHhQYxcWqUnGi8X8R3kOg==
   dependencies:
     "@babel/runtime" "^7.12.5"
-    "@polkadot/metadata" "2.8.1"
+    "@polkadot/metadata" "2.9.1"
     "@polkadot/util" "^4.2.1"
     "@polkadot/util-crypto" "^4.2.1"
     "@types/bn.js" "^4.11.6"

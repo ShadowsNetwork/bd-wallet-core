@@ -1,6 +1,6 @@
 {
   "name": "bd-wallet-core",
-  "version": "0.0.0",
+  "version": "0.0.5",
   "main": "lib/index.js",
   "module": "es/index.js",
   "types": "lib/index.d.ts",
@@ -8,10 +8,11 @@
   "license": "Apache-2.0",
   "scripts": {
     "test": "nyc mocha ./tests/*.test.ts -r ts-node/register --timeout 60000 --bail",
-    "pretest": "if [ -z \"$(docker ps -a | grep btc-server)\" ]; then docker run -d -p 8080:8080 --name \"btc-server\" junderw/bitcoinjs-regtest-server; fi"
+    "pretest": "if [ -z \"$(docker ps -a | grep btc-server)\" ]; then docker run -d -p 8080:8080 --name \"btc-server\" junderw/bitcoinjs-regtest-server; fi",
+    "prepublishOnly": "sh prepublish.sh"
   },
   "dependencies": {
-    "@polkadot/api": "^2.8.1",
+    "@polkadot/api": "^2.9.1",
     "bip32": "^2.0.6",
     "bip39": "^3.0.3",
     "bitcoinjs-lib": "^5.2.0",

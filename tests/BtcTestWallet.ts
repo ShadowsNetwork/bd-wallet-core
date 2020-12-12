@@ -1,6 +1,6 @@
 import { networks } from 'bitcoinjs-lib';
 import { RegtestUtils } from 'regtest-client';
-import { BtcWallet, Output } from '../src/wallets/BtcWallet';
+import { BtcWallet, Output, Unspent, UTXO } from '../src/wallets/BtcWallet';
 import { WordsAmount } from '../src/wallets/Wallet';
 
 export class BtcTestWallet extends BtcWallet {
@@ -14,7 +14,7 @@ export class BtcTestWallet extends BtcWallet {
     });
   }
 
-  async applyMoney(address: string, money: number) {
+  async applyMoney(address: string, money: number): Promise<Unspent> {
     return this.regtestUtils.faucet(address, money);
   }
 
@@ -29,11 +29,11 @@ export class BtcTestWallet extends BtcWallet {
     }));
   }
 
-  getUnspents(address: string) {
+  getUnspents(address: string): Promise<Unspent[]> {
     return this.regtestUtils.unspents(address);
   }
 
-  protected getUtxo(txId: string) {
+  protected getUtxo(txId: string): Promise<UTXO> {
     return this.regtestUtils.fetch(txId);
   }
 
